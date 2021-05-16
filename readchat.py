@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import socket
+import keyboard
 import simulate_key as sim
 
 host='irc.chat.twitch.tv' #this is where twitch link is at
@@ -15,26 +16,30 @@ nick = 'shabooya12' #your twitch username goes here in undercase letters
 #sends our password and username to connect to irc 
 s.sendall(f" PASS {oauth}\n".encode("utf-8"))
 s.sendall(f"NICK {nick}\n".encode("utf-8"))
-
 s.sendall(f"JOIN #{channel}\n".encode("utf-8"))
 
 lulw_count = 0
 message_count = 0
+
 while True:
+    
+    #stops execution of code if escaped is pressed
+    if keyboard.is_pressed('esc') == True:
+        break
+
     message=s.recv(2048).decode("utf-8")
 
     if message[:4]== "PING":
         s.sendall(b"PONG :tmi.twitch.tv\n")
     else:
-        splitmsg= message.split(":",2) #we only expect two splits
+        splitmsg= message.split(":",2) #we only expect two colons
         try:
             newmsg = splitmsg[2]
             newmsg = newmsg.lower().strip()
-            #sim.main(newmsg)
-
-
+            sim.main(newmsg)
         except:
             continue
+
         print(newmsg)
 
         #lulw_count += newmsg.lower().count('lulw')

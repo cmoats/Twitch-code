@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import pyautogui
+import keyboard
 import time
-import math
 
 def presslen(key, duration):
     ''' presses key down for a certain length of time'''
@@ -10,20 +10,29 @@ def presslen(key, duration):
     startpress = time.perf_counter()
     
     while time.perf_counter() - startpress < duration:
-       pyautogui.keyDown(f"{key}")
+       pyautogui.keyDown(key)
     
-    pyautogui.keyUp(f"{key}")
+    pyautogui.keyUp(key)
 
-
-
-def presslen2(key, duration):
+def presslen2(keys, duration):
     ''' presses down multiple keys for a certain length of time'''
 
     startpress = time.perf_counter()
 
     while time.perf_counter() - startpress < duration:
-       pyautogui.hotkey(*key)
-   
+       pyautogui.hotkey(*keys)
+
+def press(key):
+    pyautogui.press(key)
+
+def double_press(keys):
+    pyautogui.hotkey(*keys)
+
+def rmouse_click():
+    pyautogui.click(button='right')
+
+def lmouse_click():
+    pyautogui.click()
 
 def turn_cameraL(move, seconds):
     pyautogui.moveRel(-abs(move), 0, seconds)
@@ -31,12 +40,15 @@ def turn_cameraL(move, seconds):
 def turn_cameraR(move,seconds):
     pyautogui.moveRel(abs(move), 0, seconds)
 
-def tilt_camera_down(move,seconds):
+def tilt_cameraD(move,seconds):
     pyautogui.moveRel(0,abs(move), seconds)
 
-def tilt_camera_up(move, seconds):
+def tilt_cameraU(move, seconds):
     pyautogui.moveRel(0,-abs(move), seconds)
 
+if __name__ == '__main__':
+
+    
 
 def main(message):
     
@@ -52,10 +64,38 @@ def main(message):
     if message == 'left':
         presslen('a', 2)
 
+    if message == 'lclick':
+        lmouse_click()
+    
+    if message == 'rclick':
+        rmouse_click()
 
+    if message == 'shift':
+        press('shift')
 
+    if message == 'ctrl':
+        press('ctrl')
 
-if __name__ == '__main__':
+    if message == 'space':
+        press('space')
 
-    time.sleep(5)
-    pyautogui.click()
+    if message == 'q':
+        press('q')
+
+    if message == 'r':
+        press('r')
+
+    if message == 'e':
+        press('e')
+
+    if message == 'turnl':
+        turn_cameraL(500,0.5)
+    
+    if message == 'turnr':
+        turn_cameraR(500,0.5)
+
+    if message == 'turnu':
+        tilt_cameraU(500,0.5)
+
+    if message == 'turnd':
+        tilt_cameraD(500,0.5)
