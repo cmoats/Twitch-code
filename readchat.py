@@ -4,7 +4,7 @@ import keyboard
 import simulate_key as sim
 
 host='irc.chat.twitch.tv' #this is where twitch link is at
-port= 6667   #this might be 80 idk
+port= 6667   
 channel='ludwig' #the channel you want to join in lowercase letters
 
 s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
