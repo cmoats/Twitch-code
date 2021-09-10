@@ -52,6 +52,7 @@ if __name__ == '__main__':
 
 def main(message):
     
+    # could also use a dictionary for this instead
     if message == 'up':
         presslen('w',2)
 
